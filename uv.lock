@@ -131,6 +131,7 @@ version = "0.3.0"
 source = { editable = "." }
 dependencies = [
     { name = "advanced-alchemy", extra = ["obstore", "pwdlib", "uuid"] },
+    { name = "bun" },
     { name = "httpx-oauth" },
     { name = "litestar", extra = ["cryptography", "jinja", "jwt", "pydantic", "structlog"] },
     { name = "litestar-email", extra = ["smtp"] },
@@ -219,6 +220,7 @@ test = [
 [package.metadata]
 requires-dist = [
     { name = "advanced-alchemy", extras = ["uuid", "obstore", "pwdlib"] },
+    { name = "bun", specifier = ">=0.0.8" },
     { name = "httpx-oauth" },
     { name = "litestar", extras = ["jinja", "jwt", "structlog", "cryptography", "pydantic"] },
     { name = "litestar-email", extras = ["smtp"], specifier = ">=0.3.0" },
@@ -461,6 +463,22 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/47/d3/43acec2ec4a477d6c6191faebe5f2e79facd80936ab3e93b6f9d18d11593/bump_my_version-1.2.6.tar.gz", hash = "sha256:1f2f0daa5d699904e9739be8efb51c4c945461bad83cd4da4c89d324d9a18343", size = 1195328, upload-time = "2025-12-29T11:59:30.389Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/ab/8e/39de3356f72327dd0bf569540a858723f3fc4f11f3c5bfae85b3dadac5c3/bump_my_version-1.2.6-py3-none-any.whl", hash = "sha256:a2f567c10574a374b81a9bd6d2bd3cb2ca74befe5c24c3021123773635431659", size = 59791, upload-time = "2025-12-29T11:59:27.873Z" },
+]
+
+[[package]]
+name = "bun"
+version = "0.0.8"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pytest" },
+    { name = "rich" },
+    { name = "setuptools" },
+    { name = "sidetrack" },
+    { name = "wheel" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/84/33/f8b671a85df1b846bf7d8a0a9cb82d69f1f09daaaa2202831778d6bbc085/bun-0.0.8.tar.gz", hash = "sha256:4953625b76c4b7990f51f11c7cd8275ac8f9b8932af7fe23a13c025a2969ed95", size = 12871, upload-time = "2021-07-24T00:11:35.208Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b0/be/9b62f8821bd48f8c1341e95dd73275fee7768beb739bcd67b10a39c62032/bun-0.0.8-py3-none-any.whl", hash = "sha256:c12d6305ae79f1ef95a3075238ae73ab11adfbc8b6e977a06a6793697e0ffd7b", size = 11851, upload-time = "2021-07-24T00:11:33.519Z" },
 ]
 
 [[package]]
@@ -2914,6 +2932,15 @@ wheels = [
 ]
 
 [[package]]
+name = "setuptools"
+version = "82.0.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/82/f3/748f4d6f65d1756b9ae577f329c951cda23fb900e4de9f70900ced962085/setuptools-82.0.0.tar.gz", hash = "sha256:22e0a2d69474c6ae4feb01951cb69d515ed23728cf96d05513d36e42b62b37cb", size = 1144893, upload-time = "2026-02-08T15:08:40.206Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e1/c6/76dc613121b793286a3f91621d7b75a2b493e0390ddca50f11993eadf192/setuptools-82.0.0-py3-none-any.whl", hash = "sha256:70b18734b607bd1da571d097d236cfcfacaf01de45717d59e6e04b96877532e0", size = 1003468, upload-time = "2026-02-08T15:08:38.723Z" },
+]
+
+[[package]]
 name = "shibuya"
 version = "2026.1.9"
 source = { registry = "https://pypi.org/simple" }
@@ -2925,6 +2952,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/1d/b2/b94cb04adbb984973fe83fd670dd066514610241d829723f678366e691d2/shibuya-2026.1.9.tar.gz", hash = "sha256:b389f10fd9c07b048e940f32d1e1ac096a2d49736389173ac771b37a10b51fdf", size = 86002, upload-time = "2026-01-09T02:19:14.365Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/37/ae/06d7dfc5633c7250fefc61fd624990aa2c37e3495c08a2f23968b1acb23e/shibuya-2026.1.9-py3-none-any.whl", hash = "sha256:b58a3cc6e5619c71d00fcf0be4a3060c87040c2a62a1b3f1a93a6a41ca8eaf45", size = 103389, upload-time = "2026-01-09T02:19:12.798Z" },
+]
+
+[[package]]
+name = "sidetrack"
+version = "2.0.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/e0/67/3d2fb48f0a9bfb96b06e3714fa4da10287cf0359f1bcb2b5017778dcb568/sidetrack-2.0.1.tar.gz", hash = "sha256:fd765659edf9fa230057446912e14d5bd3e3e89a50f34ef2e215f9c6c76bb7e2", size = 15044, upload-time = "2022-01-11T00:55:33.966Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ca/d7/887a3d03fa1ffad26613b61dbaa2c5205576829ae10dc9172e9e33e8bf97/sidetrack-2.0.1-py3-none-any.whl", hash = "sha256:bdef201f80721426cd4a44c65c56fadbcd47698a4bc5c69ea753625ae3eb2397", size = 10994, upload-time = "2022-01-11T00:55:32.061Z" },
 ]
 
 [[package]]
@@ -3774,4 +3810,16 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/a5/8f/aea9c71cc92bf9b6cc0f7f70df8f0b420636b6c96ef4feee1e16f80f75dd/websockets-16.0-pp311-pypy311_pp73-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:0298d07ee155e2e9fda5be8a9042200dd2e3bb0b8a38482156576f863a9d457c", size = 176968, upload-time = "2026-01-10T09:23:41.031Z" },
     { url = "https://files.pythonhosted.org/packages/9a/3f/f70e03f40ffc9a30d817eef7da1be72ee4956ba8d7255c399a01b135902a/websockets-16.0-pp311-pypy311_pp73-win_amd64.whl", hash = "sha256:a653aea902e0324b52f1613332ddf50b00c06fdaf7e92624fbf8c77c78fa5767", size = 178735, upload-time = "2026-01-10T09:23:42.259Z" },
     { url = "https://files.pythonhosted.org/packages/6f/28/258ebab549c2bf3e64d2b0217b973467394a9cea8c42f70418ca2c5d0d2e/websockets-16.0-py3-none-any.whl", hash = "sha256:1637db62fad1dc833276dded54215f2c7fa46912301a24bd94d45d46a011ceec", size = 171598, upload-time = "2026-01-10T09:23:45.395Z" },
+]
+
+[[package]]
+name = "wheel"
+version = "0.46.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "packaging" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/89/24/a2eb353a6edac9a0303977c4cb048134959dd2a51b48a269dfc9dde00c8a/wheel-0.46.3.tar.gz", hash = "sha256:e3e79874b07d776c40bd6033f8ddf76a7dad46a7b8aa1b2787a83083519a1803", size = 60605, upload-time = "2026-01-22T12:39:49.136Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/87/22/b76d483683216dde3d67cba61fb2444be8d5be289bf628c13fc0fd90e5f9/wheel-0.46.3-py3-none-any.whl", hash = "sha256:4b399d56c9d9338230118d705d9737a2a468ccca63d5e813e2a4fc7815d8bc4d", size = 30557, upload-time = "2026-01-22T12:39:48.099Z" },
 ]
