@@ -6,5 +6,5 @@ class Column(UUIDv7AuditBase):
     __tablename__ = 'column'
 
     board_id: Mapped[UUID] = mapped_column(ForeignKey("board.id", ondelete="CASCADE"), nullable=False)
-    title:Mapped[UUID] = mapped_column(String(200))
+    title:Mapped[str] = mapped_column(String(200))
     col_position:Mapped[int] = mapped_column(Integer())

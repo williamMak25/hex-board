@@ -1,4 +1,5 @@
 from app.db.models._audit_log import AuditLog
+from app.db.models._board import Board
 from app.db.models._email_verification_token import EmailVerificationToken
 from app.db.models._oauth_account import UserOAuthAccount
 from app.db.models._password_reset_token import PasswordResetToken
@@ -12,9 +13,12 @@ from app.db.models._team_roles import TeamRoles
 from app.db.models._team_tag import team_tag
 from app.db.models._user import User
 from app.db.models._user_role import UserRole
+from app.db.models._column import Column
+from app.db.models._card import Card
 
 __all__ = (
     "AuditLog",
+    "Board",
     "EmailVerificationToken",
     "PasswordResetToken",
     "RefreshToken",
@@ -28,4 +32,6 @@ __all__ = (
     "UserOAuthAccount",
     "UserRole",
     "team_tag",
+    "Column",
+    "Card",
 )

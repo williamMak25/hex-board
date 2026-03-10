@@ -10,7 +10,7 @@ from httpx_oauth.oauth2 import OAuth2Token
 from litestar.di import Provide
 from litestar.enums import RequestEncodingType
 from litestar.openapi.config import OpenAPIConfig
-from litestar.openapi.plugins import ScalarRenderPlugin
+from litestar.openapi.plugins import SwaggerRenderPlugin
 from litestar.params import Body
 from litestar.plugins import CLIPluginProtocol, InitPluginProtocol
 from litestar.security.jwt import OAuth2Login, Token
@@ -75,7 +75,7 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
             version=__version__,
             components=[auth.openapi_components],
             security=[auth.security_requirement],
-            render_plugins=[ScalarRenderPlugin(version="latest")],
+            render_plugins=[SwaggerRenderPlugin(version="latest")],
         )
         app_config = auth.on_app_init(app_config)
         app_config.cors_config = config.cors
@@ -85,7 +85,7 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
                 plugins.structlog,
                 plugins.granian,
                 plugins.alchemy,
-                plugins.vite,
+                # plugins.vite,
                 plugins.get_saq_plugin(),
                 plugins.problem_details,
                 plugins.oauth2_provider,
@@ -118,13 +118,11 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
             DuplicateKeyError: exception_to_http_response,
         }
 
-        app_config.dependencies.update(
-            {
-                "current_user": Provide(provide_user, sync_to_thread=False),
-                "settings": Provide(provide_app_settings, sync_to_thread=False),
-                "app_mailer": Provide(get_mailer_dependency),
-            }
-        )
+        app_config.dependencies.update({
+            "current_user": Provide(provide_user, sync_to_thread=False),
+            "settings": Provide(provide_app_settings, sync_to_thread=False),
+            "app_mailer": Provide(get_mailer_dependency),
+        })
 
         return app_config
 
