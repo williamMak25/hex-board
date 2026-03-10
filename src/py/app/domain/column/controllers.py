@@ -11,7 +11,6 @@ from app.domain.column.schemas import Column, CreateColumn, UpdateColumnPosition
 from app.domain.column.services import ColumnService
 from app.lib.deps import create_service_dependencies
 
-
 class ColumnController(Controller):
     tags = ["Board  Column"]
     path = "/api/columns"
@@ -90,3 +89,8 @@ class ColumnController(Controller):
             col.col_position = index
 
         await column_service.update_many(other_cols)
+
+    @get(operation_id="Get Board Column", path="/{board_id:uuid}")
+    async def get_column(self, board_id: UUID, column_service: ColumnService) -> list[dict[str, str]]:
+        db_objs = await column_service.list(board_id=board_id)
+        return [col.to_dict() for col in db_objs if len(db_objs) > 0]

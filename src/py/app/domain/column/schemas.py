@@ -13,6 +13,7 @@ class Column(CamelizedBaseStruct):
     created_at: datetime
     updated_at: datetime
 
+    arbitrary_types_allowed = True
 
 class CreateColumn(CamelizedBaseStruct):
     board_id: UUID

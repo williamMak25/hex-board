@@ -123,6 +123,11 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
             "settings": Provide(provide_app_settings, sync_to_thread=False),
             "app_mailer": Provide(get_mailer_dependency),
         })
+        app_config.dependencies.update({
+            "current_user": Provide(provide_user, sync_to_thread=False),
+            "settings": Provide(provide_app_settings, sync_to_thread=False),
+            "app_mailer": Provide(get_mailer_dependency),
+        })
 
         return app_config
 

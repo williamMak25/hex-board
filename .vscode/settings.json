@@ -125,5 +125,6 @@
     "${workspaceFolder}/src/py"
   ],
   "biome.rename": true,
-  "biome.lsp.bin": "src/js/node_modules/@biomejs/biome/bin/biome"
+  "biome.lsp.bin": "src/js/node_modules/@biomejs/biome/bin/biome",
+  "makefile.configureOnOpen": false
 }
