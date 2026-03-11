@@ -73,22 +73,27 @@ class CardController(Controller):
             card.position = 0
             card.col_id = col.id
             await card_service.update(card)
-            # await card_service.repository.session.commit()
-            print("here a")
         else:
-            print("here i")
             target_card = await card_service.get_one_or_none(id=card_id)
 
             other_cards = [card for card in cards if card.id != card_id]
 
             other_cards.sort(key=lambda x: x.position)
             new_index = max(0, min(data.position, len(other_cards)))
-            print(target_card.col_id)
+
             if target_card:
                 target_card.col_id = data.col_id
                 other_cards.insert(new_index, target_card)
-            print(target_card.col_id)
+
             for index, card in enumerate(other_cards):
                 card.position = index
+
             await card_service.update_many(other_cards)
         await card_service.repository.session.commit()
+
+    @get(operation_id="Get Column Card Detail", path="/detail/{card_id:uuid}")
+    async def get_column_card_detail(self, card_id: UUID, card_service: CardService) -> Card:
+        db_obj = await card_service.get_one_or_none(id=card_id)
+        if not db_obj:
+            raise NotFoundException(detail="Card not found", status_code=404)
+        return card_service.to_schema(db_obj, schema_type=Card)
