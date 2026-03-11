@@ -1,6 +1,6 @@
 from datetime import datetime
 from uuid import UUID
-
+from app.domain.cards.schemas import Card
 from app.lib.schema import CamelizedBaseStruct
 
 
@@ -8,7 +8,7 @@ class Column(CamelizedBaseStruct):
     board_id: UUID
     title: str
     col_position: int
-
+    cards: list[Card]
     id: UUID
     created_at: datetime
     updated_at: datetime
@@ -26,4 +26,4 @@ class UpdateColumnTitle(CamelizedBaseStruct):
 
 class UpdateColumnPosition(CamelizedBaseStruct):
     board_id: UUID
-    col_position:int
+    col_position: int
