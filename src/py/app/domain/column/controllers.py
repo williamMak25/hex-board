@@ -8,6 +8,7 @@ from litestar.exceptions import NotFoundException
 from litestar.params import Dependency
 
 from app.domain.cards.schemas import Card
+from app.domain.accounts.schemas import User
 from app.domain.column.schemas import Column, CreateColumn, UpdateColumnPosition, UpdateColumnTitle
 from app.domain.column.services import ColumnService
 from app.lib.deps import create_service_dependencies
@@ -114,9 +115,16 @@ class ColumnController(Controller):
                         due_date=card.due_date,
                         created_at=card.created_at,
                         updated_at=card.updated_at,
+                        priority=card.priority,
+                        attachements=card.attachements,
+                        assignees=[],
+                        reporter=None,
+                        reporter_id=card.reporter_id,
                     )
                     for card in col.cards
                 ],
             )
             for col in db_objs
         ]
+# [User(**asignee.to_dict()) for asignee in card.assignees]
+# User(**card.reporter.to_dict())

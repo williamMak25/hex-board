@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from uuid import UUID
+from pydantic import ConfigDict
 
 import msgspec
 
@@ -57,9 +58,11 @@ class OauthAccount(CamelizedBaseStruct):
 
 class User(CamelizedBaseStruct):
     """User properties to use for a response."""
+    model_config = ConfigDict(extra="ignore")
 
     id: UUID
     email: str
+    login_count:int
     name: str | None = None
     username: str | None = None
     phone: str | None = None
@@ -72,6 +75,12 @@ class User(CamelizedBaseStruct):
     roles: list[UserRole] = []
     oauth_accounts: list[OauthAccount] = []
     avatar_url: str | None = None
+    verified_at: datetime | None = None
+    joined_at: datetime | None = None
+
+    
+    # class Config:
+    #     orm_mode = True
 
 
 class UserCreate(CamelizedBaseStruct):

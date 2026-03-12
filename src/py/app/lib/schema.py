@@ -4,7 +4,7 @@ import msgspec
 from advanced_alchemy.utils.text import camelize
 from pydantic import BaseModel as _BaseModel
 from pydantic import ConfigDict
-
+from enum import Enum
 
 class BaseStruct(msgspec.Struct):
     def to_dict(self) -> dict[str, Any]:
@@ -34,3 +34,9 @@ class CamelizedBaseSchema(BaseSchema):
     """Camelized Base pydantic schema."""
 
     model_config = ConfigDict(populate_by_name=True, alias_generator=camelize)
+
+
+class PriorityEnum(str, Enum):
+    LOW = "low"
+    MEDIUM = "medium"
+    HIGH = "high"

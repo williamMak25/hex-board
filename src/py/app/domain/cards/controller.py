@@ -54,6 +54,8 @@ class CardController(Controller):
         create_data = data.to_dict()
         cards = await card_service.list(col_id=data.col_id)
         create_data["position"] = len(cards) if cards else 0
+        create_data["assignees"] = []
+        create_data.pop("assignee_ids")
         db_obj = await card_service.create(create_data)
         return card_service.to_schema(db_obj, schema_type=Card)
 

@@ -10,6 +10,7 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from app.db.models._assignee import card_assignee
 from app.lib.settings import get_settings
 
 if TYPE_CHECKING:
@@ -19,7 +20,7 @@ if TYPE_CHECKING:
     from app.db.models._refresh_token import RefreshToken
     from app.db.models._team_member import TeamMember
     from app.db.models._user_role import UserRole
-
+    from app.db.models._card import Card
 
 settings = get_settings()
 
@@ -111,6 +112,9 @@ class User(UUIDv7AuditBase):
         lazy="noload",
         cascade="all, delete-orphan",
         uselist=True,
+    )
+    assigned_cards: Mapped[list[Card]] = relationship(
+        secondary=card_assignee, back_populates="assignees", viewonly=True
     )
 
     @hybrid_property
