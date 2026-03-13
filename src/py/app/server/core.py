@@ -14,6 +14,7 @@ from litestar.openapi.plugins import SwaggerRenderPlugin
 from litestar.params import Body
 from litestar.plugins import CLIPluginProtocol, InitPluginProtocol
 from litestar.security.jwt import OAuth2Login, Token
+from litestar.static_files import StaticFilesConfig
 from litestar_email import EmailService
 
 from app import config
@@ -92,6 +93,12 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
                 plugins.email,
                 plugins.domain,
             ],
+        )
+
+        app_config.static_files_config.append(
+            StaticFilesConfig(
+                directories=["./uploaded-files"], path="/uploaded-files", name="uploaded-files", html_mode=False
+            )
         )
 
         app_config.signature_namespace.update(

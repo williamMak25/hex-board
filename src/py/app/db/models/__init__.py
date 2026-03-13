@@ -16,6 +16,7 @@ from app.db.models._user_role import UserRole
 from app.db.models._column import Column
 from app.db.models._card import Card
 from app.db.models._assignee import card_assignee
+from app.db.models._files import File
 
 __all__ = (
     "AuditLog",
@@ -35,5 +36,6 @@ __all__ = (
     "team_tag",
     "Column",
     "Card",
-    "card_assignee"
+    "card_assignee",
+    "File"
 )

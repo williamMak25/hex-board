@@ -1,6 +1,6 @@
 """User-related account schemas."""
 
-from datetime import datetime
+from datetime import datetime,date
 from uuid import UUID
 from pydantic import ConfigDict
 
@@ -76,8 +76,7 @@ class User(CamelizedBaseStruct):
     oauth_accounts: list[OauthAccount] = []
     avatar_url: str | None = None
     verified_at: datetime | None = None
-    joined_at: datetime | None = None
-
+    joined_at: date | None = None
     
     # class Config:
     #     orm_mode = True

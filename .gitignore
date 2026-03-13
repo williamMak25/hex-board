@@ -106,6 +106,8 @@ celerybeat.pid
 !.env.testing
 !tools/deploy/docker/.env.docker
 .venv
+./uploaded-files
+./uploaded-files/
 env/
 venv/
 ENV/
