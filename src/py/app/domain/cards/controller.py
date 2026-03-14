@@ -57,6 +57,7 @@ class CardController(Controller):
         create_data["assignees"] = []
         create_data.pop("assignee_ids")
         db_obj = await card_service.create(create_data)
+        print(type(db_obj.attachements))
         return card_service.to_schema(db_obj, schema_type=Card)
 
     @patch(operation_id="Move Column Card Position", path="/card-position/{card_id:uuid}")

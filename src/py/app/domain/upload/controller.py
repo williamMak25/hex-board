@@ -39,19 +39,25 @@ class UploadController(Controller):
         self,
         settings: AppSettings,
         file_service: FileService,
-        data: UploadFile = Body(media_type=enums.RequestEncodingType.MULTI_PART),
-    ) -> FileType:
-        file_path = UPLOAD_DIR / data.filename
-        async with await anyio.Path(file_path).open("wb") as f:
-            content = await data.read()
-            await f.write(content)
+        data: list[UploadFile] = Body(media_type=enums.RequestEncodingType.MULTI_PART),
+    ) -> list[FileType]:
+        
+        files = []
+        for input_file in data:
 
-            file = CreateFile(
-                file_name=data.filename,
-                size=len(content),
-                file_path=f"{settings.URL}/{file_path}",
-                file_type=data.filename.split(".")[1],
-            )
+            file_path = UPLOAD_DIR / input_file.filename
+            async with await anyio.Path(file_path).open("wb") as f:
+                content = await input_file.read()
+                await f.write(content)
 
-            db_obj = await file_service.create(file)
-        return file_service.to_schema(db_obj, schema_type=FileType)
+                file = CreateFile(
+                    file_name=input_file.filename,
+                    size=len(content),
+                    file_path=f"{settings.URL}/{file_path}",
+                    file_type=input_file.filename.split(".")[-1],
+                )
+
+                db_obj = await file_service.create(file)
+                upload_file = FileType(**db_obj.to_dict())
+                files.append(upload_file)
+        return files

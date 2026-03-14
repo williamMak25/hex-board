@@ -117,6 +117,9 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
                 "EmailService": EmailService,
             },
         )
+
+        auth.exclude.extend(["/uploaded-files/"])
+
         app_config.exception_handlers = {
             ApplicationError: exception_to_http_response,
             ApplicationClientError: exception_to_http_response,
