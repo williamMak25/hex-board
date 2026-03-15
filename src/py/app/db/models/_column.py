@@ -18,4 +18,5 @@ class Column(UUIDv7AuditBase):
         back_populates="columns",
         lazy="selectin",
         cascade="all, delete",
+        load_on_pending=True
     )

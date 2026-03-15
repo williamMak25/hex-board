@@ -117,6 +117,13 @@ class User(UUIDv7AuditBase):
         secondary=card_assignee, back_populates="assignees", viewonly=True
     )
 
+    reported_cards: Mapped[list[Card]] = relationship(
+        "Card",
+        back_populates="reporter",
+        foreign_keys="Card.reporter_id",
+        viewonly=True,
+    )
+
     @hybrid_property
     def has_password(self) -> bool:
         return self.hashed_password is not None

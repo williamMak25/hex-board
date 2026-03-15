@@ -8,12 +8,12 @@ class Column(CamelizedBaseStruct):
     board_id: UUID
     title: str
     col_position: int
-    cards: list[Card]
     id: UUID
     created_at: datetime
     updated_at: datetime
-
+    cards: list[Card] = []
     arbitrary_types_allowed = True
+    
 
 class CreateColumn(CamelizedBaseStruct):
     board_id: UUID

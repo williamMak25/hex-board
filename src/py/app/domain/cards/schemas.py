@@ -16,7 +16,7 @@ class Card(CamelizedBaseStruct):
     
     priority: PriorityEnum
     reporter_id: UUID
-    reporter: User
+    reporter: User | None
     id: UUID
     created_at: datetime
     updated_at: datetime

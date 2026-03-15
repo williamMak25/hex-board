@@ -5,7 +5,8 @@ from typing import TYPE_CHECKING
 from uuid import UUID
 
 from advanced_alchemy.base import UUIDv7AuditBase
-from sqlalchemy import JSON, DateTime, ForeignKey, Integer, String, func
+from sqlalchemy import DateTime, ForeignKey, Integer, String, func
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.models._assignee import card_assignee
@@ -22,7 +23,7 @@ class Card(UUIDv7AuditBase):
     col_id: Mapped[UUID] = mapped_column(ForeignKey("column.id", ondelete="CASCADE"), nullable=False)
     title: Mapped[str] = mapped_column(String())
     description: Mapped[str] = mapped_column(String())
-    attachements: Mapped[list[str]] = mapped_column(JSON, server_default=list, nullable=True)
+    attachements: Mapped[list[str]] = mapped_column(JSONB, default=[], nullable=True)
     position: Mapped[int] = mapped_column(Integer())
     due_date: Mapped[datetime] = mapped_column(DateTime(), server_default=func.now())
 
@@ -37,7 +38,6 @@ class Card(UUIDv7AuditBase):
     reporter: Mapped[User] = relationship(
         "User",
         foreign_keys=[reporter_id],
-        viewonly=True,
         lazy="selectin",
     )
 

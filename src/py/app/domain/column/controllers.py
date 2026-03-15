@@ -12,6 +12,7 @@ from app.domain.accounts.schemas import User
 from app.domain.column.schemas import Column, CreateColumn, UpdateColumnPosition, UpdateColumnTitle
 from app.domain.column.services import ColumnService
 from app.lib.deps import create_service_dependencies
+from collections.abc import Sequence
 
 
 class ColumnController(Controller):
@@ -94,37 +95,9 @@ class ColumnController(Controller):
         await column_service.update_many(other_cols)
 
     @get(operation_id="Get Board Column", path="/{board_id:uuid}")
-    async def get_column(self, board_id: UUID, column_service: ColumnService) -> list[Column]:
+    async def get_column(self, board_id: UUID, column_service: ColumnService) -> Sequence[Column]:
         db_objs = await column_service.list(board_id=board_id)
 
-        return [
-            Column(
-                id=col.id,
-                board_id=col.board_id,
-                title=col.title,
-                col_position=col.col_position,
-                created_at=col.created_at,
-                updated_at=col.updated_at,
-                cards=[
-                    Card(
-                        id=card.id,
-                        col_id=card.col_id,
-                        title=card.title,
-                        description=card.description,
-                        position=card.position,
-                        due_date=card.due_date,
-                        created_at=card.created_at,
-                        updated_at=card.updated_at,
-                        priority=card.priority,
-                        attachements=card.attachements,
-                        assignees=[],
-                        reporter=None,
-                        reporter_id=card.reporter_id,
-                    )
-                    for card in col.cards
-                ],
-            )
-            for col in db_objs
-        ]
-# [User(**asignee.to_dict()) for asignee in card.assignees]
-# User(**card.reporter.to_dict())
+        data =  column_service.to_schema(data=db_objs, schema_type=Column)
+
+        return data.items
