@@ -24,6 +24,7 @@ class Card(UUIDv7AuditBase):
     title: Mapped[str] = mapped_column(String())
     description: Mapped[str] = mapped_column(String())
     attachements: Mapped[list[str]] = mapped_column(JSONB, default=[], nullable=True)
+    
     position: Mapped[int] = mapped_column(Integer())
     due_date: Mapped[datetime] = mapped_column(DateTime(), server_default=func.now())
 

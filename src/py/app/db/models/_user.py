@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     from app.db.models._team_member import TeamMember
     from app.db.models._user_role import UserRole
     from app.db.models._card import Card
+    from app.db.models._comment import Comment
 
 settings = get_settings()
 
@@ -121,6 +122,12 @@ class User(UUIDv7AuditBase):
         "Card",
         back_populates="reporter",
         foreign_keys="Card.reporter_id",
+        viewonly=True,
+    )
+    comments: Mapped[list[Comment]] = relationship(
+        "Comment",
+        back_populates="comment_user",
+        foreign_keys="Comment.user_id",
         viewonly=True,
     )
 

@@ -10,7 +10,10 @@ from litestar.params import Dependency
 from app.domain.cards.schemas import Card, CreateCard, UpdateCardPosition
 from app.domain.cards.services import CardService
 from app.domain.column.services import ColumnService
+from app.domain.accounts.services import UserService
 from app.lib.deps import create_service_dependencies
+from app.domain.accounts.schemas import User
+from tests.unit.lib.test_email_service import user
 
 
 class CardController(Controller):
@@ -32,6 +35,7 @@ class CardController(Controller):
         },
     )
     dependencies.update(create_service_dependencies(ColumnService, key="column_service", filters={"id_filter": UUID}))
+    dependencies.update(create_service_dependencies(UserService, key="user_service", filters={"id_filter": UUID}))
 
     @get(operation_id="Column Card List", path="/list")
     async def card_list(
@@ -49,13 +53,18 @@ class CardController(Controller):
         return [c.to_dict() for c in db_obj if len(db_obj) > 0]
 
     @post(operation_id="Create Column Card", path="/create")
-    async def create_column_card(self, card_service: CardService, data: CreateCard) -> Card:
+    async def create_column_card(self, card_service: CardService, user_service: UserService, data: CreateCard) -> Card:
 
         create_data = data.to_dict()
         cards = await card_service.list(col_id=data.col_id)
         create_data["position"] = len(cards) if cards else 0
-        create_data["assignees"] = []
-        create_data.pop("assignee_ids")
+        all_user = await user_service.list()
+
+        assigned_users = [user for user in all_user if user.id in data.assignee_ids]
+        create_data["assignees"] = assigned_users
+
+        create_data.pop("assignee_ids", None)
+
         db_obj = await card_service.create(create_data)
         await card_service.repository.session.refresh(db_obj)
         return card_service.to_schema(db_obj, schema_type=Card)
