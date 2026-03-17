@@ -16,7 +16,6 @@ from litestar.plugins import CLIPluginProtocol, InitPluginProtocol
 from litestar.security.jwt import OAuth2Login, Token
 from litestar.static_files import StaticFilesConfig
 from litestar_email import EmailService
-
 from app import config
 from app.__metadata__ import __version__
 from app.db import models as m
@@ -117,7 +116,7 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
                 "EmailService": EmailService,
             },
         )
-
+        # app_config.route_handlers.append()
         auth.exclude.extend(["/uploaded-files/"])
 
         app_config.exception_handlers = {

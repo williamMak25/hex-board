@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from litestar import Controller, websocket_listener, WebSocket
+from litestar import Controller
 
 from app.domain.comment.service import CommentService
 from app.lib.deps import create_service_dependencies
@@ -23,9 +23,3 @@ class CommentController(Controller):
             "sort_order": "asc",
         },
     )
-
-    @websocket_listener("/")
-    async def handler(self, comment_service: CommentService, data: str, socket: WebSocket) -> str:
-        if data == "goodbye":
-            await socket.close()
-        return data
