@@ -12,8 +12,6 @@ from app.domain.cards.services import CardService
 from app.domain.column.services import ColumnService
 from app.domain.accounts.services import UserService
 from app.lib.deps import create_service_dependencies
-from app.domain.accounts.schemas import User
-from tests.unit.lib.test_email_service import user
 
 
 class CardController(Controller):

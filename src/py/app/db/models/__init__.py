@@ -18,6 +18,7 @@ from app.db.models._card import Card
 from app.db.models._assignee import card_assignee
 from app.db.models._files import File
 from app.db.models._comment import Comment
+from app.db.models._board_members import board_member
 
 __all__ = (
     "AuditLog",
@@ -40,4 +41,5 @@ __all__ = (
     "card_assignee",
     "File",
     "Comment",
+    "board_member"
 )

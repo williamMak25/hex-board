@@ -11,6 +11,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.models._assignee import card_assignee
+from app.db.models._board_members import board_member
 from app.lib.settings import get_settings
 
 if TYPE_CHECKING:
@@ -22,6 +23,7 @@ if TYPE_CHECKING:
     from app.db.models._user_role import UserRole
     from app.db.models._card import Card
     from app.db.models._comment import Comment
+    from app.db.models._board import Board
 
 settings = get_settings()
 
@@ -129,6 +131,9 @@ class User(UUIDv7AuditBase):
         back_populates="comment_user",
         foreign_keys="Comment.user_id",
         viewonly=True,
+    )
+    boards:Mapped[list[Board]] = relationship(
+        secondary=lambda:board_member, back_populates="members", viewonly=True
     )
 
     @hybrid_property
