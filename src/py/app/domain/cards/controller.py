@@ -3,7 +3,7 @@ from uuid import UUID
 
 from advanced_alchemy.filters import FilterTypes
 from advanced_alchemy.service.pagination import OffsetPagination
-from litestar import Controller, get, patch, post
+from litestar import Controller, get, patch, post, patch
 from litestar.exceptions import NotFoundException
 from litestar.params import Dependency
 
@@ -43,6 +43,11 @@ class CardController(Controller):
     ) -> OffsetPagination[Card]:
         results, total = await card_service.list_and_count(*filters)
         return card_service.to_schema(data=results, total=total, schema_type=Card)
+    
+    @patch(operation_id="Card Update", path="/update/{card_id:uuid}")
+    async def update_card(self, card_id: UUID, card_service: CardService, data: CreateCard) -> Card:
+        db_obj = await card_service.update(item_id=card_id, data=data.to_dict())
+        return card_service.to_schema(db_obj, schema_type=Card)
 
     @get(operation_id="Get Column Card", path="/column-cards/{column_id:uuid}")
     async def get_column_card(self, column_id: UUID, card_service: CardService) -> list[dict[str, str]]:

@@ -8,9 +8,9 @@ from uuid import UUID
 from litestar import Controller, delete, get, patch, post
 from litestar.params import Dependency, Parameter
 from sqlalchemy.orm import joinedload, load_only, selectinload
-
 from app.db import models as m
-from app.domain.accounts.guards import requires_superuser
+from app.db import models as m
+# from app.domain.accounts.guards import requires_superuser
 from app.domain.accounts.schemas import User, UserCreate, UserUpdate
 from app.domain.accounts.services import UserService
 from app.lib.deps import create_service_dependencies
@@ -25,7 +25,7 @@ class UserController(Controller):
 
     path = "/api/users"
     tags = ["User Accounts"]
-    guards = [requires_superuser]
+    # guards = [requires_superuser]
     dependencies = create_service_dependencies(
         UserService,
         key="users_service",
@@ -50,7 +50,7 @@ class UserController(Controller):
 
     @get(operation_id="ListUsers")
     async def list_users(
-        self, users_service: UserService, filters: Annotated[list[FilterTypes], Dependency(skip_validation=True)]
+        self, users_service: UserService, filters: Annotated[list[FilterTypes], Dependency(skip_validation=True)],current_user:m.User
     ) -> OffsetPagination[User]:
         """List users.
 
@@ -61,6 +61,9 @@ class UserController(Controller):
         Returns:
             The list of users.
         """
+        if current_user:
+            filters.append(m.User.id != current_user.id)
+        
         results, total = await users_service.list_and_count(*filters)
         return users_service.to_schema(results, total, filters, schema_type=User)
 

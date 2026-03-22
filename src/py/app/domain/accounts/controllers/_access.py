@@ -118,7 +118,7 @@ class AccessController(Controller):
         if user.is_two_factor_enabled and user.totp_secret:
             mfa_challenge_token = JWTToken(
                 sub=user.email,
-                exp=datetime.now(UTC) + timedelta(minutes=5),
+                exp=datetime.now(UTC) + timedelta(minutes=60),
                 aud="mfa_verification",
                 extras={
                     "type": "mfa_challenge",
