@@ -18,5 +18,5 @@ class Board(UUIDv7AuditBase):
         secondary=lambda:board_member,
         back_populates="boards",
         lazy="selectin",
-        cascade="all, delete"
+        # cascade="all, delete"
     )

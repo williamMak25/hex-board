@@ -21,4 +21,4 @@ class Comment(UUIDv7AuditBase):
         lazy="selectin",
         cascade="all, delete",
     )
-    card_id: Mapped[UUID] = mapped_column(ForeignKey("card.id"), nullable=False)
+    card_id: Mapped[UUID] = mapped_column(ForeignKey("card.id", ondelete="CASCADE"), nullable=False)
